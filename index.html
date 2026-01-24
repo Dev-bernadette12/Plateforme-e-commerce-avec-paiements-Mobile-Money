@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MobileMoney Shop - Paiement Mobile en ligne</title>
+    <link rel="stylesheet" href="./bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fe;
+        }
+        
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #667eea !important;
+            font-size: 1.5rem;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 50px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .search-box input {
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px 0 0 50px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .search-box button {
+            border-radius: 50px;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .search-box button:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-bottom: 30px;
+            border: none;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            color: #667eea;
+            font-size: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            height: 100%;
+            border: none;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(102, 126, 234, 0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5253);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(238, 82, 83, 0.3);
+        }
+        
+        .product-image {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-body {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .product-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .btn-product {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            width: 100%;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-product:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: scale(1.02);
+            color: white;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            height: 100%;
+            transition: all 0.3s;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            color: #667eea;
+            font-size: 1.8rem;
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 80px 0;
+            margin-top: 50px;
+            clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin: 20px 0;
+            border: none;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #495057;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        
+        .newsletter-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            margin: 50px 0;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1a1f2e 0%, #2c3e50 100%);
+            color: #ffffff;
+            padding: 60px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+        
+        .footer p {
+            color: #e0e0e0;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .footer .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer .footer-links a:hover {
+            color: #667eea;
+            transform: translateX(5px);
+        }
+        
+        .footer .contact-info {
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer .contact-info i {
+            width: 30px;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+        
+        .footer hr {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 30px 0;
+            opacity: 0.5;
+        }
+        
+        .footer .copyright {
+            text-align: center;
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+        
+        .footer .copyright a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer .copyright a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: translateY(-3px);
+        }
+        
+        .payment-methods {
+            margin-top: 15px;
+        }
+        
+        .payment-methods .badge {
+            padding: 8px 15px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 25px;
+        }
+        
+        .badge-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+        
+        .badge-primary {
+            background: linear-gradient(135deg, #007bff, #00bcd4);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            color: #333;
+        }
+        
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .floating-cart .btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            position: relative;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .floating-cart .btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .floating-cart .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 8px;
+            font-size: 0.7rem;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+        }
+        
+        .modal-header {
+            border-radius: 20px 20px 0 0;
+            padding: 20px 25px;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-footer {
+            border-radius: 0 0 20px 20px;
+            padding: 15px 25px;
+        }
+        
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 12px 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+            outline: none;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+        
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-section {
+                padding: 60px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+            }
+            
+            .search-box {
+                border-radius: 30px;
+            }
+            
+            .search-box button {
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-mobile-alt text-primary"></i>
+                <span class="font-weight-bold text-gradient">MobileMoney</span>
+                <span class="text-success">Shop</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produits_details.html">Produits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comment-ca-marche">Comment ça marche</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#temoignages">Avis clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="panier.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge badge-success" id="cartCount">0</span>
+                    </a>
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="compteLink">
+                        <i class="fas fa-user"></i> Compte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div style="height: 76px;"></div>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">
+                        Payez plus simplement avec <span class="text-warning">Mobile Money</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Découvrez notre sélection de produits et payez en toute sécurité avec votre compte Mobile Money. 
+                        Simple, rapide et sécurisé.
+                    </p>
+                    
+                    <div class="search-box bg-white">
+                        <div class="row g-0 align-items-center">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Que cherchez-vous ? (Smartphone, Ordinateur, etc.)" id="searchInput">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary" onclick="rechercherProduits()">
+                                    <i class="fas fa-search me-2"></i>Rechercher
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-5">
+                        <div class="col-4">
+                            <div class="text-white">
+                                <h3 class="fw-bold mb-0">5000+</h3>
+                                <small>Clients satisfaits</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-white">
+                                <h3 class="fw-bold mb-0">1000+</h3>
+                                <small>Produits</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-white">
+                                <h3 class="fw-bold mb-0">24/7</h3>
+                                <small>Support client</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600" alt="Mobile Payment" class="img-fluid rounded-3 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="categories">
+        <h2 class="text-center section-title">Catégories populaires</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card" onclick="window.location.href='produits_details.html?categorie=smartphones'">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h5>Smartphones</h5>
+                    <p class="text-muted mb-0">Les dernières technologies</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card" onclick="window.location.href='produits_details.html?categorie=ordinateurs'">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h5>Ordinateurs</h5>
+                    <p class="text-muted mb-0">PC & Mac</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card" onclick="window.location.href='produits_details.html?categorie=audio'">
+                    <div class="category-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h5>Audio</h5>
+                    <p class="text-muted mb-0">Casques & écouteurs</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card" onclick="window.location.href='produits_details.html?categorie=montres'">
+                    <div class="category-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5>Montres</h5>
+                    <p class="text-muted mb-0">Connectées & classiques</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5" id="produits">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title text-left mb-0">Nos produits en vedette</h2>
+            <a href="produits_details.html" class="text-success">
+                Voir tout <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+        
+        <div class="row" id="productList">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="product-card">
+                    <div class="product-badge">Nouveau</div>
+                    <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=300" class="product-image w-100" alt="Samsung Galaxy S23 Ultra" onerror="this.src='https://via.placeholder.com/300x250'">
+                    <div class="product-body">
+                        <h5 class="product-title">Samsung Galaxy S23 Ultra</h5>
+                        <p class="product-description">256GB, 12GB RAM, Appareil photo 200MP</p>
+                        <div class="product-price">650 000 FCFA</div>
+                        <button class="btn-product" onclick="ajouterAuPanier(1, 'Samsung Galaxy S23 Ultra', 650000, 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=300')">
+                            <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="product-card">
+                    <div class="product-badge">-10%</div>
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300" class="product-image w-100" alt="MacBook Pro M3" onerror="this.src='https://via.placeholder.com/300x250'">
+                    <div class="product-body">
+                        <h5 class="product-title">MacBook Pro M3</h5>
+                        <p class="product-description">14 pouces, 16GB RAM, 512GB SSD</p>
+                        <div class="product-price">1 450 000 FCFA</div>
+                        <button class="btn-product" onclick="ajouterAuPanier(2, 'MacBook Pro M3', 1450000, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300')">
+                            <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="product-card">
+                    <div class="product-badge">Populaire</div>
+                    <img src="https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=300" class="product-image w-100" alt="AirPods Pro 2" onerror="this.src='https://via.placeholder.com/300x250'">
+                    <div class="product-body">
+                        <h5 class="product-title">AirPods Pro 2</h5>
+                        <p class="product-description">Réduction de bruit active, USB-C</p>
+                        <div class="product-price">185 000 FCFA</div>
+                        <button class="btn-product" onclick="ajouterAuPanier(3, 'AirPods Pro 2', 185000, 'https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=300')">
+                            <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="product-card">
+                    <div class="product-badge">Nouveau</div>
+                    <img src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=300" class="product-image w-100" alt="Apple Watch Series 9" onerror="this.src='https://via.placeholder.com/300x250'">
+                    <div class="product-body">
+                        <h5 class="product-title">Apple Watch Series 9</h5>
+                        <p class="product-description">GPS + Cellular, Boîtier aluminium</p>
+                        <div class="product-price">350 000 FCFA</div>
+                        <button class="btn-product" onclick="ajouterAuPanier(4, 'Apple Watch Series 9', 350000, 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=300')">
+                            <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="bg-light py-5" id="comment-ca-marche">
+        <div class="container">
+            <h2 class="text-center section-title">Comment ça marche ?</h2>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h5>1. Choisissez</h5>
+                        <p class="text-muted">Sélectionnez vos produits et ajoutez-les au panier</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h5>2. Entrez votre numéro</h5>
+                        <p class="text-muted">Indiquez votre numéro Celtiis, MTN ou Moov Money</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h5>3. Confirmez</h5>
+                        <p class="text-muted">Validez la notification sur votre téléphone</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h5>4. Recevez</h5>
+                        <p class="text-muted">Votre commande est livrée rapidement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">15K+</div>
+                        <div class="stat-label">Transactions</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Clients satisfaits</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">5min</div>
+                        <div class="stat-label">Livraison moyenne</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5" id="temoignages">
+        <h2 class="text-center section-title">Ce que disent nos clients</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <i class="fas fa-quote-left text-primary opacity-25 me-2"></i>
+                        J'ai acheté un smartphone et payé avec Celtiis Money. Le processus était tellement simple et rapide !
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div>
+                            <h6 class="mb-0">Mamadou Koné</h6>
+                            <small class="text-muted">Abidjan</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <i class="fas fa-quote-left text-primary opacity-25 me-2"></i>
+                        Enfin une boutique en ligne qui accepte MTN Money ! Livraison rapide et service client au top.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div>
+                            <h6 class="mb-0">Aminata Diallo</h6>
+                            <small class="text-muted">Dakar</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <i class="fas fa-quote-left text-primary opacity-25 me-2"></i>
+                        Je recommande vivement ! Le paiement avec Moov Money est sécurisé et les prix sont très compétitifs.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div>
+                            <h6 class="mb-0">Jean Kouassi</h6>
+                            <small class="text-muted">Yamoussoukro</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="newsletter-section">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-3">Restez informé</h3>
+                    <p class="text-muted">Recevez nos meilleures offres et les nouveaux produits directement dans votre boîte mail.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="email" class="form-control form-control-lg" placeholder="Votre adresse email">
+                        <button class="btn btn-success btn-lg" type="button">S'inscrire</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>
+                        <i class="fas fa-mobile-alt text-success"></i>
+                        MobileMoney Shop
+                    </h5>
+                    <p>La plateforme de e-commerce spécialisée dans les paiements Mobile Money en Afrique.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="produits_details.html">Produits</a></li>
+                        <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+                        <li><a href="#">Promotions</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Aide</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">Paiement</a></li>
+                        <li><a href="#">Retours</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Contact</h5>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone me-2"></i> +229 01 59 42 30 87</li>
+                        <li><i class="fas fa-envelope me-2"></i> contact@mobilemoneyshop.com</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Porto-Novo, Bénin</li>
+                    </ul>
+                    
+                    <div class="mt-3">
+                        <h6>Méthodes de paiement</h6>
+                        <div>
+                            <span class="badge badge-success p-2 me-1">Celtiis Money</span>
+                            <span class="badge badge-primary p-2 me-1">MTN Money</span>
+                            <span class="badge badge-warning p-2">Moov Money</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-secondary">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2026 MobileMoney Shop - Tous droits réservés</p>
+                    <small class="text-muted">Projet d'intégration de paiements mobiles - Simulation</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="floating-cart">
+        <a href="panier.html" class="btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="badge" id="floatingCartCount">0</span>
+        </a>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="loginModalLabel">
+                        <i class="fas fa-user-circle me-2"></i>
+                        Connexion à votre compte
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" onsubmit="event.preventDefault(); connecterUtilisateur();">
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-envelope text-success me-2"></i>
+                                Email ou numéro de téléphone
+                            </label>
+                            <input type="text" class="form-control" id="loginEmail" placeholder="exemple@email.com ou +229 01 23 45 67">
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-lock text-success me-2"></i>
+                                Mot de passe
+                            </label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="••••••••">
+                            <div class="text-end mt-2">
+                                <a href="#" class="text-success small">Mot de passe oublié ?</a>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100 mb-3 py-3">
+                            <i class="fas fa-sign-in-alt me-2"></i>
+                            Se connecter
+                        </button>
+                        
+                        <div class="text-center">
+                            <p class="text-muted mb-0">Pas encore de compte ?</p>
+                            <a href="#" onclick="afficherInscription()" class="text-success fw-bold">
+                                Créer un compte gratuitement
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <p class="text-muted small mb-0">
+                        <i class="fas fa-shield-alt text-success me-2"></i>
+                        Vos informations sont sécurisées
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="registerModalLabel">
+                        <i class="fas fa-user-plus me-2"></i>
+                        Créer un compte
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm" onsubmit="event.preventDefault(); inscrireUtilisateur();">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Prénom</label>
+                                <input type="text" class="form-control" id="registerPrenom" placeholder="Jean">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Nom</label>
+                                <input type="text" class="form-control" id="registerNom" placeholder="Kouassi">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-envelope text-success me-2"></i>
+                                Email
+                            </label>
+                            <input type="email" class="form-control" id="registerEmail" placeholder="jean.kouassi@email.com">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-phone text-success me-2"></i>
+                                Numéro Mobile Money
+                            </label>
+                            <input type="tel" class="form-control" id="registerPhone" placeholder="+229 01 23 45 67">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-lock text-success me-2"></i>
+                                Mot de passe
+                            </label>
+                            <input type="password" class="form-control" id="registerPassword" placeholder="Au moins 8 caractères">
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-lock text-success me-2"></i>
+                                Confirmer le mot de passe
+                            </label>
+                            <input type="password" class="form-control" id="registerConfirmPassword" placeholder="••••••••">
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="acceptTerms">
+                            <label class="form-check-label small" for="acceptTerms">
+                                J'accepte les <a href="#" class="text-success">conditions d'utilisation</a> 
+                                et la <a href="#" class="text-success">politique de confidentialité</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100 py-3">
+                            <i class="fas fa-user-plus me-2"></i>
+                            Créer mon compte
+                        </button>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-center">
+                        <p class="text-muted mb-0">Déjà un compte ?</p>
+                        <a href="#" onclick="afficherConnexion()" class="text-success fw-bold">
+                            Se connecter
+                            <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const CART_STORAGE_KEY = 'mobileMoneyCart';
+        let cart = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            chargerPanier();
+            mettreAJourCompteurPanier();
+            setInterval(() => {
+                mettreAJourCompteurPanier();
+            }, 100);
+        });
+
+        function chargerPanier() {
+            const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+            if (savedCart) {
+                try {
+                    cart = JSON.parse(savedCart);
+                } catch (e) {
+                    cart = [];
+                }
+            } else {
+                cart = [];
+            }
+        }
+
+        function sauvegarderPanier() {
+            localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+        }
+
+        function ajouterAuPanier(id, nom, prix, image) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantite += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    nom: nom,
+                    prix: prix,
+                    image: image,
+                    quantite: 1
+                });
+            }
+            
+            sauvegarderPanier();
+            mettreAJourCompteurPanier();
+            afficherNotification(`${nom} ajouté au panier !`, 'success');
+        }
+
+        function mettreAJourCompteurPanier() {
+            const totalArticles = cart.reduce((sum, item) => sum + item.quantite, 0);
+            document.getElementById('cartCount').textContent = totalArticles;
+            document.getElementById('floatingCartCount').textContent = totalArticles;
+        }
+
+        function afficherNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `toast-notification alert alert-${type}`;
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'} me-2"></i>
+                ${message}
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function connecterUtilisateur() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                afficherNotification('❌ Veuillez remplir tous les champs', 'danger');
+                return;
+            }
+            
+            afficherNotification('✅ Connexion réussie ! Redirection...', 'success');
+            
+            localStorage.setItem('userConnected', 'true');
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', email.split('@')[0] || 'Client');
+            
+            bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+        }
+        
+        function inscrireUtilisateur() {
+            const prenom = document.getElementById('registerPrenom')?.value || '';
+            const nom = document.getElementById('registerNom')?.value || '';
+            const email = document.getElementById('registerEmail')?.value || '';
+            const phone = document.getElementById('registerPhone')?.value || '';
+            const password = document.getElementById('registerPassword')?.value || '';
+            const confirmPassword = document.getElementById('registerConfirmPassword')?.value || '';
+            const acceptTerms = document.getElementById('acceptTerms')?.checked || false;
+            
+            if (!prenom || !nom || !email || !phone || !password || !confirmPassword) {
+                afficherNotification('❌ Veuillez remplir tous les champs', 'danger');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                afficherNotification('❌ Les mots de passe ne correspondent pas', 'danger');
+                return;
+            }
+            
+            if (!acceptTerms) {
+                afficherNotification('❌ Vous devez accepter les conditions', 'danger');
+                return;
+            }
+            
+            afficherNotification('✅ Compte créé avec succès ! Redirection...', 'success');
+            
+            localStorage.setItem('userConnected', 'true');
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', prenom);
+            localStorage.setItem('userFullName', prenom + ' ' + nom);
+            localStorage.setItem('userPhone', phone);
+            
+            bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+        }
+        
+        function connexionMobileMoney(operateur) {
+            let nomOperateur = '';
+            switch(operateur) {
+                case 'celtiis': nomOperateur = 'Celtiis Money'; break;
+                case 'mtn': nomOperateur = 'MTN Money'; break;
+                case 'moov': nomOperateur = 'Moov Money'; break;
+                default: nomOperateur = 'Mobile Money';
+            }
+            
+            afficherNotification(`📱 Notification envoyée sur votre téléphone ${nomOperateur}`, 'info');
+            
+            setTimeout(() => {
+                afficherNotification('✅ Connexion réussie ! Redirection...', 'success');
+                
+                localStorage.setItem('userConnected', 'true');
+                localStorage.setItem('userEmail', 'client@' + operateur + '.com');
+                localStorage.setItem('userName', 'Client ' + nomOperateur);
+                
+                bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+            }, 2000);
+        }
+        
+        function afficherInscription() {
+            bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+            setTimeout(() => {
+                new bootstrap.Modal(document.getElementById('registerModal')).show();
+            }, 500);
+        }
+        
+        function afficherConnexion() {
+            bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+            setTimeout(() => {
+                new bootstrap.Modal(document.getElementById('loginModal')).show();
+            }, 500);
+        }
+
+        function rechercherProduits() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const produits = document.querySelectorAll('#productList .col-lg-3');
+            
+            let count = 0;
+            produits.forEach(produit => {
+                const titre = produit.querySelector('.product-title').textContent.toLowerCase();
+                const description = produit.querySelector('.product-description').textContent.toLowerCase();
+                
+                if (titre.includes(searchTerm) || description.includes(searchTerm) || searchTerm === '') {
+                    produit.style.display = 'block';
+                    count++;
+                } else {
+                    produit.style.display = 'none';
+                }
+            });
+            
+            afficherNotification(`${count} produits trouvés pour "${searchTerm || 'tous'}"`, 'info');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
