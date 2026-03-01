@@ -4,7 +4,7 @@ Une plateforme e-commerce moderne avec intégration de paiements mobiles (Mobile
 
 ## 🌐 Démonstration en ligne
 
-**Visitez le site :** [https://dev-bernadette12.github.io/Integration-des-mobiles-Moblie-money-de-paiement-dans-une-platforme/](https://dev-bernadette12.github.io/Integration-des-mobiles-Moblie-money-de-paiement-dans-une-platforme/)
+**Visitez le site :** [https://dev-bernadette12.github.io/Plateforme-e-commerce-avec-paiements-Mobile-Money/](https://dev-bernadette12.github.io/Plateforme-e-commerce-avec-paiements-Mobile-Money/)
 
 ## ✨ Fonctionnalités
 
@@ -34,10 +34,10 @@ Une plateforme e-commerce moderne avec intégration de paiements mobiles (Mobile
 
 ```bash
 # Cloner le repository
-git clone https://github.com/Dev-bernadette12/Integration-des-mobiles-Moblie-money-de-paiement-dans-une-platforme.git
+git clone https://github.com/Dev-bernadette12/Plateforme-e-commerce-avec-paiements-Mobile-Money.git
 
 # Naviguer dans le dossier
-cd Integration-des-mobiles-Moblie-money-de-paiement-dans-une-platforme
+cd Plateforme-e-commerce-avec-paiements-Mobile-Money
 
 # Ouvrir index.html dans votre navigateur
 open index.html
