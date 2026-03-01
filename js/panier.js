@@ -204,7 +204,7 @@ class Panier {
                 checkoutBtn.removeAttribute('href');
             } else {
                 checkoutBtn.classList.remove('disabled');
-                checkoutBtn.href = 'client/paiement.html';
+                checkoutBtn.href = 'paiement.html';
             }
         }
     }
