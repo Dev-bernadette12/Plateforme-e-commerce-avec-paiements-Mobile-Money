@@ -1,4 +1,4 @@
-# 💰 MobileMoney Shop - Plateforme de Paiement Mobile
+en# 💰 MobileMoney Shop - Plateforme de Paiement Mobile
 
 Une plateforme e-commerce moderne avec intégration de paiements mobiles (Mobile Money) pour l'Afrique.
 
