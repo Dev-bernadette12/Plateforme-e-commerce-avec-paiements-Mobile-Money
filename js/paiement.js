@@ -122,22 +122,22 @@ class PaiementHandler {
             
             setTimeout(() => {
                 params.set('status', 'success');
-                window.location.href = `confirmation.html?${params.toString()}`;
+                window.location.href = `client/confirmation.html?${params.toString()}`;
             }, 1000);
             
         } else if (random < 0.85) { // 15% de chance : échec (solde)
             params.set('status', 'failed');
             params.set('error', 'Solde insuffisant. Veuillez recharger votre compte Mobile Money.');
-            window.location.href = `confirmation.html?${params.toString()}`;
+            window.location.href = `client/confirmation.html?${params.toString()}`;
             
         } else if (random < 0.95) { // 10% de chance : échec (numéro invalide)
             params.set('status', 'failed');
             params.set('error', 'Numéro de téléphone invalide ou non inscrit au service Mobile Money.');
-            window.location.href = `confirmation.html?${params.toString()}`;
+            window.location.href = `client/confirmation.html?${params.toString()}`;
             
         } else { // 5% de chance : attente de confirmation
             params.set('status', 'pending');
-            window.location.href = `confirmation.html?${params.toString()}`;
+            window.location.href = `client/confirmation.html?${params.toString()}`;
         }
         
         // Réactiver le bouton (ne sera pas exécuté si on redirige)
