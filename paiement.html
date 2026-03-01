@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement - MobileMoney Shop</title>
+    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fe;
+        }
+        
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #667eea !important;
+            font-size: 1.5rem;
+        }
+        
+        .payment-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .payment-header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .payment-card h4 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .mobile-money-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .mobile-money-btn {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .mobile-money-btn:hover {
+            border-color: #667eea;
+            background: #f8f9fe;
+        }
+        
+        .mobile-money-btn.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+        }
+        
+        .mobile-money-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .mobile-money-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .mobile-money-country {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        .order-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .order-summary h4 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-item.total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #667eea;
+            border-bottom: none;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .btn-pay {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .btn-pay:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .btn-pay:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-back {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-back:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #0066cc;
+        }
+        
+        .security-badge i {
+            font-size: 1.3rem;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1a1f2e 0%, #2c3e50 100%);
+            color: #ffffff;
+            padding: 60px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+        
+        .footer p {
+            color: #e0e0e0;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .footer .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer .footer-links a:hover {
+            color: #667eea;
+            transform: translateX(5px);
+        }
+        
+        .footer .contact-info {
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer .contact-info i {
+            width: 30px;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+        
+        .footer hr {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 30px 0;
+            opacity: 0.5;
+        }
+        
+        .footer .copyright {
+            text-align: center;
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+        
+        .footer .copyright a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer .copyright a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: translateY(-3px);
+        }
+        
+        .badge-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+        
+        .badge-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+        
+        .badge-warning {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-shopping-bag me-2"></i>MobileMoney Shop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produits_details.html">Produits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="panier.html">
+                            <i class="fas fa-shopping-cart"></i> Panier
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="payment-header">
+        <div class="container">
+            <h1><i class="fas fa-credit-card me-3"></i>Paiement sécurisé</h1>
+            <p class="mb-0">Complétez votre commande avec Celtiis, MTN ou Moov Money</p>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="payment-card">
+                    <h4><i class="fas fa-map-marker-alt me-2"></i>Adresse de livraison</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Jean">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Kouassi">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Adresse</label>
+                        <input type="text" class="form-control" id="address" placeholder="123 Rue de la Paix">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Ville</label>
+                                <input type="text" class="form-control" id="city" placeholder="Abidjan">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Code postal</label>
+                                <input type="text" class="form-control" id="zipCode" placeholder="01 BP 1234">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-card">
+                    <h4><i class="fas fa-mobile-alt me-2"></i>Choisissez votre opérateur Mobile Money</h4>
+                    
+                    <div class="mobile-money-options">
+                        <div class="mobile-money-btn" onclick="selectionnerMobileMoney('celtiis', this)">
+                            <div class="mobile-money-icon" style="color: #28a745;">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <div class="mobile-money-name">Celtiis Money</div>
+                            <div class="mobile-money-country">Bénin</div>
+                        </div>
+                        
+                        <div class="mobile-money-btn" onclick="selectionnerMobileMoney('mtn', this)">
+                            <div class="mobile-money-icon" style="color: #ffd700;">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <div class="mobile-money-name">MTN Money</div>
+                            <div class="mobile-money-country">Cameroun, Bénin</div>
+                        </div>
+                        
+                        <div class="mobile-money-btn" onclick="selectionnerMobileMoney('moov', this)">
+                            <div class="mobile-money-icon" style="color: #ff0000;">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <div class="mobile-money-name">Moov Money</div>
+                            <div class="mobile-money-country">Bénin, Togo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-card">
+                    <h4><i class="fas fa-phone me-2"></i>Numéro de téléphone Mobile Money</h4>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Numéro de téléphone</label>
+                        <input type="tel" class="form-control" id="phoneNumber" placeholder="+229 01 23 45 67">
+                        <small class="text-muted mt-2 d-block">Entrez le numéro associé à votre compte Celtiis, MTN ou Moov Money</small>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="acceptTerms">
+                        <label class="form-check-label" for="acceptTerms">
+                            J'accepte les <a href="#" class="text-decoration-none">conditions de paiement</a> et la <a href="#" class="text-decoration-none">politique de confidentialité</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="order-summary">
+                    <h4>Résumé de la commande</h4>
+                    
+                    <div id="orderItems"></div>
+                    
+                    <div class="summary-item">
+                        <span>Sous-total</span>
+                        <span id="subtotal">0 FCFA</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span>Frais de livraison</span>
+                        <span id="shipping">5 000 FCFA</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span>TVA (18%)</span>
+                        <span id="tax">0 FCFA</span>
+                    </div>
+                    
+                    <div class="summary-item total">
+                        <span>Total à payer</span>
+                        <span id="total">0 FCFA</span>
+                    </div>
+                    
+                    <button class="btn-pay" id="payBtn" onclick="procederAuPaiement()" disabled>
+                        <i class="fas fa-lock me-2"></i>Payer maintenant
+                    </button>
+                    
+                    <button class="btn-back" onclick="window.location.href='panier.html'">>
+                        <i class="fas fa-arrow-left me-2"></i>Retour au panier
+                    </button>
+                    
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Paiement 100% sécurisé avec chiffrement SSL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>
+                        <i class="fas fa-mobile-alt me-2" style="color: #667eea;"></i>
+                        MobileMoney Shop
+                    </h5>
+                    <p>La plateforme de e-commerce spécialisée dans les paiements Mobile Money en Afrique.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="produits_details.html">Produits</a></li>
+                        <li><a href="#">Promotions</a></li>
+                        <li><a href="#">Nouveautés</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Aide & Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">Paiement</a></li>
+                        <li><a href="#">Retours</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5>Contactez-nous</h5>
+                    <div class="contact-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Porto-Novo, Bénin</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-phone"></i>
+                        <span>+229 01 59 42 30 87</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@mobilemoneyshop.com</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-clock"></i>
+                        <span>Lun-Ven: 8h-20h | Sam: 9h-18h</span>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h5 class="mt-4 mb-3">Méthodes de paiement</h5>
+                        <span class="badge badge-success">Celtiis Money</span>
+                        <span class="badge badge-primary">MTN Money</span>
+                        <span class="badge badge-warning">Moov Money</span>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="copyright">
+                <p class="mb-2">&copy; 2026 MobileMoney Shop - Tous droits réservés</p>
+                <p class="mb-0">
+                    <a href="#">Mentions légales</a> | 
+                    <a href="#">Politique de confidentialité</a> | 
+                    <a href="#">Conditions générales</a>
+                </p>
+                <p class="mt-3 small">Projet d'intégration de paiements mobiles - Simulation</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/paiement.js"></script>
+    
+    <script>
+        const CART_STORAGE_KEY = 'mobileMoneyCart';
+        const FRAIS_LIVRAISON = 5000;
+        const TVA_RATE = 0.18;
+        let selectedMobileMoney = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            afficherResume();
+            document.getElementById('acceptTerms').addEventListener('change', function() {
+                document.getElementById('payBtn').disabled = !this.checked || !selectedMobileMoney;
+            });
+        });
+
+        function chargerPanier() {
+            const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+            if (savedCart) {
+                try {
+                    return JSON.parse(savedCart);
+                } catch (e) {
+                    return [];
+                }
+            }
+            return [];
+        }
+
+        function afficherResume() {
+            const cart = chargerPanier();
+            
+            if (cart.length === 0) {
+                window.location.href = 'panier.html';
+                return;
+            }
+
+            const itemsHtml = cart.map(item => `
+                <div class="summary-item">
+                    <span>${item.nom} x${item.quantite}</span>
+                    <span>${formatMontant(item.prix * item.quantite)}</span>
+                </div>
+            `).join('');
+            
+            document.getElementById('orderItems').innerHTML = itemsHtml;
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.prix * item.quantite), 0);
+            const tax = Math.round(subtotal * TVA_RATE);
+            const total = subtotal + FRAIS_LIVRAISON + tax;
+
+            document.getElementById('subtotal').textContent = formatMontant(subtotal);
+            document.getElementById('shipping').textContent = formatMontant(FRAIS_LIVRAISON);
+            document.getElementById('tax').textContent = formatMontant(tax);
+            document.getElementById('total').textContent = formatMontant(total);
+        }
+
+        function selectionnerMobileMoney(operateur, element) {
+            document.querySelectorAll('.mobile-money-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            element.classList.add('active');
+            selectedMobileMoney = operateur;
+            verifierPaiement();
+        }
+
+        function verifierPaiement() {
+            const hasTerms = document.getElementById('acceptTerms').checked;
+            const hasMobileMoney = selectedMobileMoney !== null;
+            document.getElementById('payBtn').disabled = !(hasTerms && hasMobileMoney);
+        }
+
+        function validerTelephone(numero) {
+            const regex = /^(\+229|00229)?[0-9]{8,10}$/;
+            return regex.test(numero.replace(/\s/g, ''));
+        }
+
+        function procederAuPaiement() {
+            if (localStorage.getItem('userConnected') !== 'true') {
+                alert('Veuillez vous connecter pour continuer');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const zipCode = document.getElementById('zipCode').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            if (!firstName || !lastName || !address || !city || !zipCode || !phoneNumber) {
+                alert('Veuillez remplir tous les champs de l\'adresse de livraison');
+                return;
+            }
+
+            if (!validerTelephone(phoneNumber)) {
+                alert('Veuillez entrer un numéro de téléphone valide (format +229 XX XX XX XX)');
+                return;
+            }
+
+            if (!selectedMobileMoney) {
+                alert('Veuillez sélectionner un opérateur Mobile Money');
+                return;
+            }
+
+            if (!document.getElementById('acceptTerms').checked) {
+                alert('Veuillez accepter les conditions de paiement');
+                return;
+            }
+
+            const paymentInfo = {
+                firstName,
+                lastName,
+                address,
+                city,
+                zipCode,
+                phoneNumber,
+                mobileMoney: selectedMobileMoney,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('paymentInfo', JSON.stringify(paymentInfo));
+            window.location.href = 'traitement-paiement.html';
+        }
+
+        function formatMontant(montant) {
+            return new Intl.NumberFormat('fr-FR', {
+                style: 'currency',
+                currency: 'XOF',
+                minimumFractionDigits: 0
+            }).format(montant);
+        }
+    </script>
+</body>
+</html>
